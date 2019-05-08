@@ -1,0 +1,136 @@
+
+        <?php
+/*---------------------------------------------------------------------
+Program:	index.php
+Konusu:		BMG dersi �dev3 1. sorusunun cevab�
+Programc�:	Oguzhan Sezer 1306150047 oguzhansezer11@gmail.com
+Dili:		PHP 7
+Tarih:		28.11.2018
+Kurum:		�stanbul �niversitesi
+----------------------------------------------------------------------*/
+        
+        
+print "kare matrislerin  boyutunu  giriniz?";       
+$n = (int)fgets(STDIN);              //kare matris icin boyut aldik
+                                  //burda satin ve sutun olarak al�p kontrol de
+                                   //edebilirdik ama bos islem kalabaligi
+print "1. Matris icin\n";   
+$matris1 = matrisOku($n, $n);         //matris oku fonksiyonunu cagirdik
+print "2. Matris icin\n";
+$matris2 = matrisOku($n, $n);
+//print "2. Matris icin\n";
+//$matris2 = matrisOku($n, $m);
+//$toplam = matrisToplami($matris1, $matris2, $n, $m);
+print " Matris 1 \n";
+matrisYaz($matris1);     //ilk matrisi yazar
+print " Matris 2 \n";
+matrisYaz($matris2);    //ikinci matrisi yazar
+$carpimlari=carpim($matris1,$matris2);   // carpim fonk carpimlarina atadik
+print "carpimlari \n";  
+matrisYaz($carpimlari);                  //carpim fonk cagirdik
+$toplamlari=toplam($matris1,$matris2);   //toplamlari fonk returnunu atadik
+print "toplamlari \n"; 
+matrisYaz($toplamlari);                //matrisi yazzdik
+$farklari=cikarma($matris1,$matris2);
+print "farklari \n"; 
+matrisYaz($farklari);  
+$transpozesi=transpoze($matris1);       //transpoze fonk returnunu atad�k
+print "1. matrisin transpoze'u \n"; 
+matrisYaz($transpozesi);            //matrisi yazdik
+$ortalamasi=ortalama($matris1);
+print "1. matrisin ortalamasi \n"; 
+print $ortalamasi;                  //ortalama degeri yazdirdik
+
+
+
+function carpim($matris1,$matris2){                       //iki matrisi carpar
+    $matris3 = array();
+    for($i = 0; $i < count($matris1); $i++){ //donguyle her satir sutun carpiliyor
+                
+		for($j = 0; $j < count($matris2[$i]); $j++){
+		$matris3[$i][$j]=$matris1[$i][$j]*$matris2[$j][$i]; //carpim islemi
+		}
+		
+	}
+    return $matris3;                //carpim sonucunu matris olarak dondurur
+    
+}
+
+function toplam($matris1,$matris2){                       //iki matrisi toplar
+    $matris3 = array();
+    for($i = 0; $i < count($matris1); $i++){ //donguyle her satir sutun toplaniyor
+                
+		for($j = 0; $j < count($matris2[$i]); $j++){
+		$matris3[$i][$j]=$matris1[$i][$j]+$matris2[$i][$j]; //toplamlari 
+		}
+		
+	}
+    return $matris3;  //toplami matris olarak dondurur
+    
+}
+function cikarma($matris1,$matris2){                       //iki matrisin farklari
+    $matris3 = array();
+    for($i = 0; $i < count($matris1); $i++){ //donguyle her satir sutun c�kar�yor
+                
+		for($j = 0; $j < count($matris2[$i]); $j++){
+		$matris3[$i][$j]=$matris1[$i][$j]-$matris2[$i][$j];//farklari buluyor
+		}
+		
+	}
+    return $matris3;
+    
+}
+
+function transpoze($matris1){
+    $matris3 = array();
+    for($i = 0; $i < count($matris1); $i++){ //donguyle her satir sutuna ulas�yoruz
+                
+		for($j = 0; $j < count($matris1[$i]); $j++){
+		$matris3[$j][$i]=$matris1[$i][$j];  //satir sutun change
+		}
+		
+	}
+    
+    return $matris3;
+}
+function ortalama($matris1){                  //ortalama bulma fonksiyonu
+    $ortalama=0;
+    $elemansayisi=0; //eleman sayisi sayaci
+    for($i = 0; $i < count($matris1); $i++){ //donguyle her satir sutuna ulas�yoruz
+                
+		for($j = 0; $j < count($matris1[$i]); $j++){
+		$ortalama=$matris1[$i][$j]+$ortalama;  //her eleman� topluyoruz
+		$elemansayisi=$elemansayisi+1;  //sayac 
+                
+                }
+		
+	}
+    
+    return $ortalama/$elemansayisi;
+}
+
+function matrisYaz($matris){
+
+	for($i = 0; $i < count($matris); $i++){
+		for($j = 0; $j < count($matris[$i]); $j++){
+			print "{$matris[$i][$j]} ";
+		}
+		print "\n";
+	}
+}
+
+function matrisOku($satirSayisi, $sutunSayisi){       // matris okuma fonksiyonu
+
+	$a = array();                                 //yeni dizi olusturur
+	for($i = 0; $i < $satirSayisi; $i++){
+		for($j = 0; $j < $sutunSayisi; $j++){
+			print "Matrisin ".($i+1).", ".($j+1).". degerini veriniz? ";
+			$a[$i][$j] = (int)fgets(STDIN); 
+		}
+	}
+	return $a;      
+}
+?>
+        
+        
+       
